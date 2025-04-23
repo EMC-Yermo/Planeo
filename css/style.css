@@ -1,0 +1,154 @@
+/* Estilos básicos */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    margin-bottom: 10px;
+  }
+  
+  .buttons-container {
+    margin-bottom: 10px;
+  }
+  
+  /* Contenedor principal (mapa con dos canchas) */
+  #map-container {
+    width: 900px;      /* más ancho para acomodar líneas */
+    height: 800px;     /* más alto para dos canchas separadas */
+    border: 2px solid #ccc;
+    position: relative;
+    background-color: #f3f3f3;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+  }
+  
+  /* CANCHAS DE BÁSQUET (BASE) */
+  .court {
+    position: absolute;
+    background-color: #cfb785; /* color base del “parquet” */
+    border: 2px solid #444;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  /* Etiqueta dentro de cada cancha */
+  .label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    color: #000;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
+  /* 
+   * Líneas principales de la cancha (horizontal):
+   * - Línea central horizontal
+   * - Línea central vertical
+   * - Círculos (arco) en mitad
+   * - Paint area (área de la canasta)
+   */
+  .court::before,
+  .court::after {
+    content: "";
+    position: absolute;
+    background-color: #fff; /* líneas blancas */
+  }
+  
+  /* Cancha grande */
+  .court-big {
+    top: 30px;     /* más arriba */
+    left: 50px;
+    width: 700px;  
+    height: 300px;
+  }
+  
+  /* 1) Línea central horizontal (pseudo-elemento ::before) */
+  .court-big::before {
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px; /* grosor */
+    transform: translateY(-50%);
+  }
+  
+  /* 2) Línea central vertical (pseudo-elemento ::after) */
+  .court-big::after {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  
+  /* Semicírculo central en la cancha grande */
+  .court-big::marker, /* No se usa marker, se usa un div fantasma */
+  .court-big > .semicircle-big {
+    /* Este se definirá abajo manualmente, lo podemos hacer con un div o pseudo extra */
+  }
+  
+  /* 
+   * Cancha pequeña 
+   * (aún más abajo, estilo similar pero dimensiones diferentes)
+   */
+  .court-small {
+    top: 480px;    /* bastante separada de la grande */
+    left: 150px;
+    width: 500px;
+    height: 220px;
+  }
+  
+  /* Pseudo-elementos horizontales en la cancha pequeña */
+  .court-small::before {
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+  
+  .court-small::after {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  
+  /* Area para soltar los grupos */
+  #drop-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Panel con grupos */
+  #groups-container {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+    margin-left: 20px;
+  }
+  
+  .group {
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin: 6px 0;
+    padding: 8px;
+    cursor: grab;
+    user-select: none;
+    width: fit-content;
+  }
+  
+  /* Clones que se sueltan en el mapa */
+  .placed {
+    position: absolute;
+    white-space: nowrap;
+    z-index: 2;
+  }
+  

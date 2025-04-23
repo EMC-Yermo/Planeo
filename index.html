@@ -2,18 +2,21 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Acomodo Viacrucis - Mapa HTML/CSS (Corregido)</title>
-
-    <!-- Vinculamos nuestro archivo de estilos local -->
+    <title>Acomodo - Dos Canchas de Básquet Estilizadas</title>
+    <!-- Nuestro CSS -->
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Librerías (CDN) para exportar: html2canvas y jsPDF -->
+    <!-- Librerías (CDN) para exportar a PDF/imagen -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   </head>
   <body>
-    <h1>Acomodo Viacrucis - Mapa HTML/CSS</h1>
-    <p>Arrastra y suelta los grupos en el mapa. Después, exporta el acomodo a PDF o imagen.</p>
+    <h1>Mapa con Dos Canchas de Básquet (Estilizadas)</h1>
+    <p>
+      Se dibuja una cancha grande horizontal arriba y, tras un amplio espacio,
+      otra cancha más pequeña abajo. Arrastra y suelta los grupos (Padres e
+      Hijos). Luego exporta a PDF o Imagen sin requerir instalaciones extras.
+    </p>
 
     <!-- Botones para exportar -->
     <div class="buttons-container">
@@ -21,33 +24,30 @@
       <button id="btn-img">Exportar a Imagen</button>
     </div>
 
-    <!-- Contenedor principal del mapa (dibujado con divs) -->
+    <!-- Contenedor principal de las canchas -->
     <div id="map-container">
-      <!-- Zona: Cancha Destechada -->
-      <div class="zone cancha">
-        <span>Cancha Destechada</span>
-      </div>
-      <!-- Zona: Zona de Sombra -->
-      <div class="zone sombra">
-        <span>Zona de Sombra</span>
-      </div>
-      <!-- Zona: Recorrido -->
-      <div class="zone recorrido">
-        <span>Recorrido</span>
+      <!-- Cancha grande (horizontal, más detallada) -->
+      <div class="court court-big">
+        <div class="label">Cancha de Básquet (Grande)</div>
       </div>
 
-      <!-- Área donde se posicionan los grupos arrastrados -->
+      <!-- Cancha pequeña (horizontal) más abajo -->
+      <div class="court court-small">
+        <div class="label">Cancha de Básquet (Pequeña)</div>
+      </div>
+
+      <!-- Área donde se sueltan los grupos arrastrados -->
       <div id="drop-area"></div>
     </div>
 
-    <!-- Panel con grupos para arrastrar (ejemplo: Padres e Hijos) -->
+    <!-- Lista de grupos (Padres e Hijos) -->
     <div id="groups-container">
-      <h3>Grupos (Arrástralos)</h3>
-      <!-- Padres de familia -->
+      <h2>Padres de familia</h2>
       <div class="group" draggable="true">6°A (Padres)</div>
       <div class="group" draggable="true">6°B (Padres)</div>
       <div class="group" draggable="true">6°C (Padres)</div>
-      <!-- Hijos de familia -->
+
+      <h2>Hijos de familia</h2>
       <div class="group" draggable="true">1°A (Hijos)</div>
       <div class="group" draggable="true">1°B (Hijos)</div>
       <div class="group" draggable="true">1°C (Hijos)</div>
@@ -59,7 +59,7 @@
       <div class="group" draggable="true">4°B (Hijos)</div>
     </div>
 
-    <!-- Archivo JS propio -->
+    <!-- Nuestro JS principal -->
     <script src="./js/script.js"></script>
   </body>
 </html>
