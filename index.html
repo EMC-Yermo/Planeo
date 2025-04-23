@@ -2,20 +2,21 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Acomodo - Dos Canchas de Básquet Estilizadas</title>
+    <title>Tres Áreas: Cancha Techada, sin techo y Fútbol</title>
     <!-- Nuestro CSS -->
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Librerías (CDN) para exportar a PDF/imagen -->
+    <!-- Librerías para exportar (CDNs) -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   </head>
   <body>
-    <h1>Mapa con Dos Canchas de Básquet (Estilizadas)</h1>
+    <h1>Cancha Techada, Cancha sin techo y Cancha Fútbol</h1>
     <p>
-      Se dibuja una cancha grande horizontal arriba y, tras un amplio espacio,
-      otra cancha más pequeña abajo. Arrastra y suelta los grupos (Padres e
-      Hijos). Luego exporta a PDF o Imagen sin requerir instalaciones extras.
+      Se han creado tres áreas del mismo tamaño (800×350). Las dos primeras tienen
+      señalización de básquet (pero con distintos nombres) y la tercera es un
+      rectángulo vacío representando una Cancha de Fútbol.  
+      Arrastra y suelta tus grupos. Luego exporta a PDF o Imagen.
     </p>
 
     <!-- Botones para exportar -->
@@ -24,23 +25,42 @@
       <button id="btn-img">Exportar a Imagen</button>
     </div>
 
-    <!-- Contenedor principal de las canchas -->
+    <!-- Contenedor principal -->
     <div id="map-container">
-      <!-- Cancha grande (horizontal, más detallada) -->
-      <div class="court court-big">
-        <div class="label">Cancha de Básquet (Grande)</div>
+      <!-- 1) Cancha Techada -->
+      <div class="court court-1">
+        <div class="label">Cancha Techada</div>
+        <!-- Señalización de básquet -->
+        <div class="line half-court"></div>
+        <div class="line center-circle"></div>
+        <div class="line free-throw-left"></div>
+        <div class="line free-throw-right"></div>
+        <div class="line three-point-left"></div>
+        <div class="line three-point-right"></div>
       </div>
 
-      <!-- Cancha pequeña (horizontal) más abajo -->
-      <div class="court court-small">
-        <div class="label">Cancha de Básquet (Pequeña)</div>
+      <!-- 2) Cancha sin techo (mismo tamaño), con mayor espacio vertical -->
+      <div class="court court-2">
+        <div class="label">Cancha sin techo</div>
+        <!-- Señalización de básquet -->
+        <div class="line half-court"></div>
+        <div class="line center-circle"></div>
+        <div class="line free-throw-left"></div>
+        <div class="line free-throw-right"></div>
+        <div class="line three-point-left"></div>
+        <div class="line three-point-right"></div>
+      </div>
+
+      <!-- 3) Cancha fútbol (rectángulo vacío), mismo tamaño pero sin trazos -->
+      <div class="rectangle-empty">
+        <div class="label">Cancha fútbol</div>
       </div>
 
       <!-- Área donde se sueltan los grupos arrastrados -->
       <div id="drop-area"></div>
     </div>
 
-    <!-- Lista de grupos (Padres e Hijos) -->
+    <!-- Panel de grupos (Padres e Hijos) -->
     <div id="groups-container">
       <h2>Padres de familia</h2>
       <div class="group" draggable="true">6°A (Padres)</div>

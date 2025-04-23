@@ -1,4 +1,4 @@
-// Tomamos jsPDF de la variable global (CDN)
+// Tomamos jsPDF de la variable global
 const { jsPDF } = window.jspdf;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let offsetX = 0;
   let offsetY = 0;
 
-  // Asignamos dragstart a cada .group
+  // Preparar arrastre para los grupos
   const groups = document.querySelectorAll(".group");
   groups.forEach((elem) => {
     elem.addEventListener("dragstart", (e) => {
@@ -35,11 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
       clone.classList.add("placed");
       dropArea.appendChild(clone);
 
-      // Calculamos coordenadas dentro del contenedor
+      // Calculamos posición absoluta
       const containerRect = dropArea.getBoundingClientRect();
       const newLeft = e.clientX - containerRect.left - offsetX;
       const newTop = e.clientY - containerRect.top - offsetY;
-
       clone.style.left = newLeft + "px";
       clone.style.top = newTop + "px";
 
@@ -62,16 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save("acomodo-canchas.pdf");
+    pdf.save("acomodo-tres-cancha.pdf");
   });
 
-  // Exportar a Imagen
+  // Exportar a Imagen (PNG)
   btnImg.addEventListener("click", async () => {
     const canvas = await html2canvas(mapContainer);
     const imgData = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.href = imgData;
-    link.download = "acomodo-canchas.png";
+    link.download = "acomodo-tres-cancha.png";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
