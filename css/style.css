@@ -1,36 +1,52 @@
-/* Eliminar solo box-shadow */
+/* Quitar solo box-shadow al exportar */
 .noShadows * {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
   }
   
-  /* Estilos globales */
+  /* Fuente Montserrat */
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 20px;
-    background: #faf9f7;
+    background: #fefefe;
   }
   
   h1 {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  
+  p {
+    margin-bottom: 12px;
   }
   
   .buttons-container {
     margin-bottom: 10px;
   }
   .buttons-container button {
-    margin-right: 10px;
+    margin-right: 8px;
     cursor: pointer;
+    background: linear-gradient(130deg, #673ab7, #512da8);
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+  }
+  .buttons-container button:hover {
+    transform: translateY(-2px);
   }
   
-  /* Contenedor principal */
+  /* Lienzo principal */
   #map-container {
     width: 1000px;
     height: 1200px;
-    background: linear-gradient(180deg, #fdfdfd 0%, #f1f1f1 100%);
+    background: linear-gradient(180deg, #fdfdfd, #f5f5f5 80%);
     border: 2px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -40,31 +56,32 @@
   #drop-area {
     position: absolute;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
   }
   
   #right-panel {
     display: inline-block;
     vertical-align: top;
-    width: 240px;
+    width: 280px;
   }
   
-  /* Cuadros para “Grupos” y “Figuras” */
+  /* Cuadros (Grupos, Figuras, Textos) */
   #groups-container,
-  #figures-container {
-    background: #ffffff;
-    border-radius: 12px;
+  #figures-container,
+  #texts-container {
+    background: #fff;
+    border-radius: 10px;
     padding: 12px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    margin-bottom: 16px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   }
   
-  /* Títulos */
   #groups-container h2,
-  #figures-container h2 {
+  #figures-container h2,
+  #texts-container h2 {
     margin: 0 0 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
   
   /* Rejilla en filas de 3 */
@@ -74,9 +91,9 @@
     gap: 10px;
   }
   
-  /* Botones (Grupos) */
+  /* Grupos => se mueven */
   .group {
-    background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+    background: linear-gradient(135deg, #ff9966, #ff5e62);
     border-radius: 8px;
     border: none;
     padding: 8px;
@@ -85,52 +102,92 @@
     width: 60px;
     margin: 0 auto;
     cursor: grab;
-    user-select: none;
-    box-sizing: border-box;
     white-space: nowrap;
-  
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
+    user-select: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
   }
   .group:hover {
     transform: translateY(-3px);
   }
   
-  /* Botones (Figuras) */
+  /* Figuras => se clonan una sola vez al venir desde el panel */
   .figure {
     font-size: 1.8rem;
     color: #fff;
-    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    background: linear-gradient(135deg, #536976, #292E49);
     border-radius: 8px;
     border: none;
     padding: 8px;
     width: 60px;
     margin: 0 auto;
     text-align: center;
-    box-sizing: border-box;
     cursor: grab;
     white-space: nowrap;
     user-select: none;
-  
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
   }
   .figure:hover {
     transform: translateY(-3px);
   }
   
-  /* Clones arrastrados */
+  /* Textos */
+  .add-text-form {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  #text-input {
+    flex: 1;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  #btn-add-text {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    background: linear-gradient(135deg, #674FA3, #5B3E96);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  #btn-add-text:hover {
+    transform: translateY(-3px);
+  }
+  
+  #texts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .text-item {
+    background: linear-gradient(135deg, #ffe084, #ffc93c);
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: #333;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    border: 1px solid #c39d39;
+    white-space: nowrap;
+    transition: transform 0.2s;
+  }
+  .text-item:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* .placed => arrastrados al mapa */
   .placed {
     position: absolute;
     white-space: nowrap;
     z-index: 20;
   }
   
-  /* 
-     CANCHAS (SVG):
-     - Dejamos un margin viewBox a la izq (ej. -20)
-     - .court
-  */
+  /* Canchas */
   .court {
     position: absolute;
     width: 800px;
@@ -138,39 +195,36 @@
     left: 50%;
     transform: translateX(-50%);
     border: 2px solid #444;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: inset 0 4px 12px rgba(0,0,0,0.1);
   }
-  
-  /* position y fondo de canchas */
   .court-1 {
     top: 30px;
-    background: linear-gradient(120deg, #bde0fe 0%, #a5d8fe 100%);
+    background: linear-gradient(120deg, #bce0ff, #a5d8fe);
   }
   .court-2 {
     top: 420px;
-    background: linear-gradient(120deg, #c5f1c5 0%, #b0e6b0 100%);
+    background: linear-gradient(120deg, #b9f9b9, #a5eea5);
   }
   .rectangle-empty {
     top: 780px;
-    background: linear-gradient(120deg, #dcdcdc 0%, #cacaca 100%);
+    background: linear-gradient(120deg, #e3e3e3, #d2d2d2);
     border-style: dashed;
   }
-  
   .label {
     position: absolute;
-    top: 8px; left: 8px;
-    font-weight: bold;
+    top: 8px;
+    left: 8px;
+    font-weight: 600;
     color: #333;
     z-index: 2;
   }
-  
-  /* El SVG que dibuja las líneas de básquet */
   .court-svg {
     position: absolute;
     top: 0; left: 0;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     z-index: 2;
   }
   

@@ -2,45 +2,49 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Señalética Completa (SVG + Margen + Ajuste Scroll)</title>
+    <title>Tres Canchas + Figuras Reubicables pero sin duplicarse al reacomodar</title>
 
-    <!-- Estilos -->
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos locales -->
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Librerías (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- Librerías (dom-to-image y jsPDF) -->
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   </head>
   <body>
-    <h1>Canchas con SVG (margen) + Ajuste Scroll en html2canvas</h1>
+    <h1>Tres Canchas + Figuras "clon" solo al pasar del panel al mapa</h1>
     <p>
-      Agregamos un margen en <code>viewBox</code> (ej. <code>-20 0 840 350</code>)
-      y usamos <code>scrollX: 0, scrollY: 0</code> en html2canvas para evitar
-      recortes. Solo se quita box-shadow al exportar.
+      Las Figuras se clonan solo la primera vez que van del panel al mapa.
+      Si luego vuelves a arrastrar la figura en el mapa, se moverá (no la volverá a duplicar).
+      Los Grupos y Textos se mueven sin duplicar desde el panel.  
+      Al exportar, se quitan las sombras.
     </p>
 
-    <!-- Botones de exportación -->
+    <!-- Botones para exportar -->
     <div class="buttons-container">
       <button id="btn-pdf">Exportar a PDF</button>
       <button id="btn-img">Exportar a Imagen</button>
     </div>
 
-    <!-- Contenedor principal -->
+    <!-- Mapa (3 canchas) -->
     <div id="map-container">
-      <!-- Cancha 1 (Techada) con viewBox más ancho -->
+      <!-- Cancha 1 -->
       <div class="court court-1">
         <div class="label">Cancha Techada</div>
         <svg class="court-svg" viewBox="-20 0 840 350" preserveAspectRatio="none">
           <!-- línea horizontal media -->
-          <line x1="0" y1="175" x2="800" y2="175"
-                stroke="white" stroke-width="3"/>
+          <line x1="0" y1="175" x2="800" y2="175" stroke="white" stroke-width="3"/>
           <!-- línea vertical centro -->
-          <line x1="400" y1="0" x2="400" y2="350"
-                stroke="white" stroke-width="3"/>
+          <line x1="400" y1="0" x2="400" y2="350" stroke="white" stroke-width="3"/>
           <!-- círculo central -->
-          <circle cx="400" cy="175" r="40"
-                  fill="none" stroke="white" stroke-width="3"/>
-          <!-- semicírculos tiro libre izq/dcha -->
+          <circle cx="400" cy="175" r="40" fill="none" stroke="white" stroke-width="3"/>
+          <!-- semicírculos tiro libre -->
           <path d="M 80,175 a 40,40 0,0,1 40,-40
                    v 80 a 40,40 0,0,1 -40,-40 z"
                 fill="none" stroke="white" stroke-width="3"/>
@@ -48,27 +52,21 @@
                    v 80 a 40,40 0,0,0 40,-40 z"
                 fill="none" stroke="white" stroke-width="3"/>
           <!-- arcos 3 puntos -->
-          <path d="M 0,175
-                   a 140,140 0,0,1 140,-140
-                   v 280
-                   a 140,140 0,0,1 -140,-140 z"
+          <path d="M 0,175 a 140,140 0,0,1 140,-140
+                   v 280 a 140,140 0,0,1 -140,-140 z"
                 fill="none" stroke="white" stroke-width="3"/>
-          <path d="M 800,175
-                   a 140,140 0,0,0 -140,-140
-                   v 280
-                   a 140,140 0,0,0 140,-140 z"
+          <path d="M 800,175 a 140,140 0,0,0 -140,-140
+                   v 280 a 140,140 0,0,0 140,-140 z"
                 fill="none" stroke="white" stroke-width="3"/>
         </svg>
       </div>
 
-      <!-- Cancha 2 (sin techo) -->
+      <!-- Cancha 2 -->
       <div class="court court-2">
         <div class="label">Cancha sin techo</div>
         <svg class="court-svg" viewBox="-20 0 840 350" preserveAspectRatio="none">
-          <line x1="0" y1="175" x2="800" y2="175"
-                stroke="white" stroke-width="3"/>
-          <line x1="400" y1="0" x2="400" y2="350"
-                stroke="white" stroke-width="3"/>
+          <line x1="0" y1="175" x2="800" y2="175" stroke="white" stroke-width="3"/>
+          <line x1="400" y1="0" x2="400" y2="350" stroke="white" stroke-width="3"/>
           <circle cx="400" cy="175" r="36"
                   fill="none" stroke="white" stroke-width="3"/>
           <path d="M 70,175 a 36,36 0,0,1 36,-36
@@ -80,25 +78,24 @@
           <path d="M 0,175 a 130,130 0,0,1 130,-130
                    v 260 a 130,130 0,0,1 -130,-130 z"
                 fill="none" stroke="white" stroke-width="3"/>
-          <path d="M 800,175
-                   a 130,130 0,0,0 -130,-130
-                   v 260
-                   a 130,130 0,0,0 130,-130 z"
+          <path d="M 800,175 a 130,130 0,0,0 -130,-130
+                   v 260 a 130,130 0,0,0 130,-130 z"
                 fill="none" stroke="white" stroke-width="3"/>
         </svg>
       </div>
 
-      <!-- Cancha 3 (Fútbol gris, sin líneas) -->
+      <!-- Cancha 3 -->
       <div class="court rectangle-empty">
         <div class="label">Cancha fútbol (gris)</div>
       </div>
 
-      <!-- Zona para clones arrastrados -->
+      <!-- Área de drop -->
       <div id="drop-area"></div>
     </div>
 
-    <!-- Panel derecho (Grupos y Figuras) -->
+    <!-- Panel derecho (Grupos, Figuras, Textos) -->
     <div id="right-panel">
+      <!-- Grupos -->
       <div id="groups-container">
         <h2>Grupos:</h2>
         <div class="groups-grid">
@@ -127,6 +124,8 @@
           <div class="group" draggable="true">6°C</div>
         </div>
       </div>
+
+      <!-- Figuras -->
       <div id="figures-container">
         <h2>Figuras:</h2>
         <div class="groups-grid">
@@ -146,8 +145,19 @@
           <div class="figure" draggable="true">💥</div>
         </div>
       </div>
+
+      <!-- Textos -->
+      <div id="texts-container">
+        <h2>Textos:</h2>
+        <div class="add-text-form">
+          <input type="text" id="text-input" placeholder="Escribe tu texto..." />
+          <button id="btn-add-text">Agregar</button>
+        </div>
+        <div id="texts-list"></div>
+      </div>
     </div>
 
+    <!-- Nuestro script JS -->
     <script src="./js/script.js"></script>
   </body>
 </html>
