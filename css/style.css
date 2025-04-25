@@ -1,178 +1,176 @@
-/* Estilos básicos */
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* Eliminar solo box-shadow */
+.noShadows * {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
   }
   
-  .buttons-container {
-    margin-bottom: 10px;
+  /* Estilos globales */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #faf9f7;
   }
   
   h1 {
     margin-bottom: 10px;
   }
   
+  .buttons-container {
+    margin-bottom: 10px;
+  }
+  .buttons-container button {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
   /* Contenedor principal */
   #map-container {
     width: 1000px;
-    height: 1400px; /* Espacio para 2 canchas + 1 rectángulo */
+    height: 1200px;
+    background: linear-gradient(180deg, #fdfdfd 0%, #f1f1f1 100%);
     border: 2px solid #ccc;
-    background-color: #e4e4e4;
-    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     display: inline-block;
     vertical-align: top;
-    overflow: hidden;
+    position: relative;
+    margin-right: 20px;
   }
   
-  /* Área de soltar */
   #drop-area {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
   }
   
-  /* Panel de grupos */
-  #groups-container {
+  #right-panel {
     display: inline-block;
     vertical-align: top;
-    width: 220px;
-    margin-left: 20px;
+    width: 240px;
   }
   
+  /* Cuadros para “Grupos” y “Figuras” */
+  #groups-container,
+  #figures-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  }
+  
+  /* Títulos */
+  #groups-container h2,
+  #figures-container h2 {
+    margin: 0 0 8px;
+  }
+  
+  /* Rejilla en filas de 3 */
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 10px;
+  }
+  
+  /* Botones (Grupos) */
   .group {
-    background-color: #fff;
-    border: 1px solid #999;
-    border-radius: 4px;
-    margin: 6px 0;
+    background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+    border-radius: 8px;
+    border: none;
     padding: 8px;
+    color: #fff;
+    text-align: center;
+    width: 60px;
+    margin: 0 auto;
     cursor: grab;
     user-select: none;
-    width: fit-content;
+    box-sizing: border-box;
+    white-space: nowrap;
+  
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+  }
+  .group:hover {
+    transform: translateY(-3px);
   }
   
-  /* Clones que se sueltan */
+  /* Botones (Figuras) */
+  .figure {
+    font-size: 1.8rem;
+    color: #fff;
+    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    border-radius: 8px;
+    border: none;
+    padding: 8px;
+    width: 60px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: grab;
+    white-space: nowrap;
+    user-select: none;
+  
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+  }
+  .figure:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Clones arrastrados */
   .placed {
     position: absolute;
     white-space: nowrap;
-    z-index: 10;
+    z-index: 20;
   }
   
-  /* CANCHAS DE BÁSQUET (court) */
+  /* 
+     CANCHAS (SVG):
+     - Dejamos un margin viewBox a la izq (ej. -20)
+     - .court
+  */
   .court {
     position: absolute;
     width: 800px;
     height: 350px;
-    background-color: #cfb785; /* color parquet */
+    left: 50%;
+    transform: translateX(-50%);
     border: 2px solid #444;
-    box-sizing: border-box;
+    border-radius: 10px;
     overflow: hidden;
+    box-shadow: inset 0 4px 12px rgba(0,0,0,0.1);
   }
   
-  /* 1) Cancha Techada (arriba) */
+  /* position y fondo de canchas */
   .court-1 {
     top: 30px;
-    left: 70px;
+    background: linear-gradient(120deg, #bde0fe 0%, #a5d8fe 100%);
   }
-  
-  /* 2) Cancha sin techo (debajo de la primera, con + espacio) */
   .court-2 {
-    top: 450px; /* 30 + 350 + 70 = 450 => 70px de separación */
-    left: 70px;
+    top: 420px;
+    background: linear-gradient(120deg, #c5f1c5 0%, #b0e6b0 100%);
   }
-  
-  /* 3) Cancha fútbol: rectángulo vacío, mismo tamaño */
   .rectangle-empty {
-    position: absolute;
-    top: 870px;  /* 450 + 350 + 70 = 870 => 70px más de espacio */
-    left: 70px;
-    width: 800px;
-    height: 350px;
-    border: 2px dashed #444; 
-    background-color: transparent;
-    box-sizing: border-box;
+    top: 780px;
+    background: linear-gradient(120deg, #dcdcdc 0%, #cacaca 100%);
+    border-style: dashed;
   }
   
-  /* Etiquetas */
   .label {
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 8px; left: 8px;
     font-weight: bold;
-    color: #000;
+    color: #333;
     z-index: 2;
   }
   
-  /* Líneas / Arcos de básquet */
-  .line {
+  /* El SVG que dibuja las líneas de básquet */
+  .court-svg {
     position: absolute;
-    background-color: transparent;
-    border: 2px solid #fff;
-    box-sizing: border-box;
-  }
-  
-  /* Media cancha */
-  .half-court {
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 0;
-    transform: translateY(-50%);
-    border-left: none;
-    border-right: none;
-    border-top: none;
-  }
-  
-  /* Círculo central */
-  .center-circle {
-    width: 80px;
-    height: 80px;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    border-right: none;
-    border-left: none;
-  }
-  
-  /* Semicírculos tiro libre izq/der */
-  .free-throw-left {
-    width: 70px;
-    height: 70px;
-    top: 50%;
-    left: 5%;
-    transform: translateY(-50%);
-    border-radius: 50% 0 0 50%;
-    border-right: none;
-  }
-  .free-throw-right {
-    width: 70px;
-    height: 70px;
-    top: 50%;
-    right: 5%;
-    transform: translateY(-50%);
-    border-radius: 0 50% 50% 0;
-    border-left: none;
-  }
-  
-  /* Arcos de 3 puntos izq/der */
-  .three-point-left {
-    width: 140px;
-    height: 140px;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    border-radius: 50% 0 0 50%;
-    border-right: none;
-  }
-  .three-point-right {
-    width: 140px;
-    height: 140px;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    border-radius: 0 50% 50% 0;
-    border-left: none;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 2;
   }
   

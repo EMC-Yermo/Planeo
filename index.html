@@ -2,24 +2,24 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Tres Áreas: Cancha Techada, sin techo y Fútbol</title>
-    <!-- Nuestro CSS -->
+    <title>Señalética Completa (SVG + Margen + Ajuste Scroll)</title>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Librerías para exportar (CDNs) -->
+    <!-- Librerías (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   </head>
   <body>
-    <h1>Cancha Techada, Cancha sin techo y Cancha Fútbol</h1>
+    <h1>Canchas con SVG (margen) + Ajuste Scroll en html2canvas</h1>
     <p>
-      Se han creado tres áreas del mismo tamaño (800×350). Las dos primeras tienen
-      señalización de básquet (pero con distintos nombres) y la tercera es un
-      rectángulo vacío representando una Cancha de Fútbol.  
-      Arrastra y suelta tus grupos. Luego exporta a PDF o Imagen.
+      Agregamos un margen en <code>viewBox</code> (ej. <code>-20 0 840 350</code>)
+      y usamos <code>scrollX: 0, scrollY: 0</code> en html2canvas para evitar
+      recortes. Solo se quita box-shadow al exportar.
     </p>
 
-    <!-- Botones para exportar -->
+    <!-- Botones de exportación -->
     <div class="buttons-container">
       <button id="btn-pdf">Exportar a PDF</button>
       <button id="btn-img">Exportar a Imagen</button>
@@ -27,59 +27,127 @@
 
     <!-- Contenedor principal -->
     <div id="map-container">
-      <!-- 1) Cancha Techada -->
+      <!-- Cancha 1 (Techada) con viewBox más ancho -->
       <div class="court court-1">
         <div class="label">Cancha Techada</div>
-        <!-- Señalización de básquet -->
-        <div class="line half-court"></div>
-        <div class="line center-circle"></div>
-        <div class="line free-throw-left"></div>
-        <div class="line free-throw-right"></div>
-        <div class="line three-point-left"></div>
-        <div class="line three-point-right"></div>
+        <svg class="court-svg" viewBox="-20 0 840 350" preserveAspectRatio="none">
+          <!-- línea horizontal media -->
+          <line x1="0" y1="175" x2="800" y2="175"
+                stroke="white" stroke-width="3"/>
+          <!-- línea vertical centro -->
+          <line x1="400" y1="0" x2="400" y2="350"
+                stroke="white" stroke-width="3"/>
+          <!-- círculo central -->
+          <circle cx="400" cy="175" r="40"
+                  fill="none" stroke="white" stroke-width="3"/>
+          <!-- semicírculos tiro libre izq/dcha -->
+          <path d="M 80,175 a 40,40 0,0,1 40,-40
+                   v 80 a 40,40 0,0,1 -40,-40 z"
+                fill="none" stroke="white" stroke-width="3"/>
+          <path d="M 720,175 a 40,40 0,0,0 -40,-40
+                   v 80 a 40,40 0,0,0 40,-40 z"
+                fill="none" stroke="white" stroke-width="3"/>
+          <!-- arcos 3 puntos -->
+          <path d="M 0,175
+                   a 140,140 0,0,1 140,-140
+                   v 280
+                   a 140,140 0,0,1 -140,-140 z"
+                fill="none" stroke="white" stroke-width="3"/>
+          <path d="M 800,175
+                   a 140,140 0,0,0 -140,-140
+                   v 280
+                   a 140,140 0,0,0 140,-140 z"
+                fill="none" stroke="white" stroke-width="3"/>
+        </svg>
       </div>
 
-      <!-- 2) Cancha sin techo (mismo tamaño), con mayor espacio vertical -->
+      <!-- Cancha 2 (sin techo) -->
       <div class="court court-2">
         <div class="label">Cancha sin techo</div>
-        <!-- Señalización de básquet -->
-        <div class="line half-court"></div>
-        <div class="line center-circle"></div>
-        <div class="line free-throw-left"></div>
-        <div class="line free-throw-right"></div>
-        <div class="line three-point-left"></div>
-        <div class="line three-point-right"></div>
+        <svg class="court-svg" viewBox="-20 0 840 350" preserveAspectRatio="none">
+          <line x1="0" y1="175" x2="800" y2="175"
+                stroke="white" stroke-width="3"/>
+          <line x1="400" y1="0" x2="400" y2="350"
+                stroke="white" stroke-width="3"/>
+          <circle cx="400" cy="175" r="36"
+                  fill="none" stroke="white" stroke-width="3"/>
+          <path d="M 70,175 a 36,36 0,0,1 36,-36
+                   v 72 a 36,36 0,0,1 -36,-36 z"
+                fill="none" stroke="white" stroke-width="3"/>
+          <path d="M 730,175 a 36,36 0,0,0 -36,-36
+                   v 72 a 36,36 0,0,0 36,-36 z"
+                fill="none" stroke="white" stroke-width="3"/>
+          <path d="M 0,175 a 130,130 0,0,1 130,-130
+                   v 260 a 130,130 0,0,1 -130,-130 z"
+                fill="none" stroke="white" stroke-width="3"/>
+          <path d="M 800,175
+                   a 130,130 0,0,0 -130,-130
+                   v 260
+                   a 130,130 0,0,0 130,-130 z"
+                fill="none" stroke="white" stroke-width="3"/>
+        </svg>
       </div>
 
-      <!-- 3) Cancha fútbol (rectángulo vacío), mismo tamaño pero sin trazos -->
-      <div class="rectangle-empty">
-        <div class="label">Cancha fútbol</div>
+      <!-- Cancha 3 (Fútbol gris, sin líneas) -->
+      <div class="court rectangle-empty">
+        <div class="label">Cancha fútbol (gris)</div>
       </div>
 
-      <!-- Área donde se sueltan los grupos arrastrados -->
+      <!-- Zona para clones arrastrados -->
       <div id="drop-area"></div>
     </div>
 
-    <!-- Panel de grupos (Padres e Hijos) -->
-    <div id="groups-container">
-      <h2>Padres de familia</h2>
-      <div class="group" draggable="true">6°A (Padres)</div>
-      <div class="group" draggable="true">6°B (Padres)</div>
-      <div class="group" draggable="true">6°C (Padres)</div>
+    <!-- Panel derecho (Grupos y Figuras) -->
+    <div id="right-panel">
+      <div id="groups-container">
+        <h2>Grupos:</h2>
+        <div class="groups-grid">
+          <div class="group" draggable="true">1°A</div>
+          <div class="group" draggable="true">1°B</div>
+          <div class="group" draggable="true">1°C</div>
 
-      <h2>Hijos de familia</h2>
-      <div class="group" draggable="true">1°A (Hijos)</div>
-      <div class="group" draggable="true">1°B (Hijos)</div>
-      <div class="group" draggable="true">1°C (Hijos)</div>
-      <div class="group" draggable="true">2°A (Hijos)</div>
-      <div class="group" draggable="true">2°B (Hijos)</div>
-      <div class="group" draggable="true">3°A (Hijos)</div>
-      <div class="group" draggable="true">3°B (Hijos)</div>
-      <div class="group" draggable="true">4°A (Hijos)</div>
-      <div class="group" draggable="true">4°B (Hijos)</div>
+          <div class="group" draggable="true">2°A</div>
+          <div class="group" draggable="true">2°B</div>
+          <div class="group" draggable="true">2°C</div>
+
+          <div class="group" draggable="true">3°A</div>
+          <div class="group" draggable="true">3°B</div>
+          <div class="group" draggable="true">3°C</div>
+
+          <div class="group" draggable="true">4°A</div>
+          <div class="group" draggable="true">4°B</div>
+          <div class="group" draggable="true">4°C</div>
+
+          <div class="group" draggable="true">5°A</div>
+          <div class="group" draggable="true">5°B</div>
+          <div class="group" draggable="true">5°C</div>
+
+          <div class="group" draggable="true">6°A</div>
+          <div class="group" draggable="true">6°B</div>
+          <div class="group" draggable="true">6°C</div>
+        </div>
+      </div>
+      <div id="figures-container">
+        <h2>Figuras:</h2>
+        <div class="groups-grid">
+          <div class="figure" draggable="true">⬆️</div>
+          <div class="figure" draggable="true">⬇️</div>
+          <div class="figure" draggable="true">➡️</div>
+          <div class="figure" draggable="true">⬅️</div>
+
+          <div class="figure" draggable="true">↗️</div>
+          <div class="figure" draggable="true">↙️</div>
+          <div class="figure" draggable="true">⭕</div>
+          <div class="figure" draggable="true">❌</div>
+
+          <div class="figure" draggable="true">✔️</div>
+          <div class="figure" draggable="true">⭐</div>
+          <div class="figure" draggable="true">❤️</div>
+          <div class="figure" draggable="true">💥</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Nuestro JS principal -->
     <script src="./js/script.js"></script>
   </body>
 </html>
